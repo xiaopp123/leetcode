@@ -5,6 +5,10 @@
 #include <set>
 #include <algorithm>
 using namespace std;
+/**
+ * https://leetcode.com/problems/4sum/description/
+ * 解法同15题，三个数求和，这里多一层循环
+ */
 
 class Solution {
     public:
