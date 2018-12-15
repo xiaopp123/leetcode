@@ -5,6 +5,7 @@
 #include <algorithm>
 using namespace std;
 
+//主要是查找最后一个不大于target的数
 class Solution {
     private:
         int find_first(vector<int> arry, int left, int right, int target) {
