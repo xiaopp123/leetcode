@@ -13,10 +13,24 @@ class Solution {
     public:
     vector<string> generateParenthesis(int n) {
         vector<string> res;
-        backtrack(res, "", 0, 0, n);
-
+//        backtrack(res, "", 0, 0, n);
+        backtrack(res, "", 0, n);
         return res;
     }
+
+    public:
+    void backtrack(vector<string> &res, string cur, int open, int n) {
+        if ((int)cur.length() == 2 * n) {
+            res.push_back(cur);
+            return;
+        }
+        if (open < n) {
+            backtrack(res, cur + "(", open + 1, n);
+        } else {
+           backtrack(res, cur + ")", open, n);
+        }
+    }
+
 
     public:
     void backtrack(vector<string> &res, string cur, int open, int close, int n) {
