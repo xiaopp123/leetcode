@@ -15,6 +15,60 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+class Solution {
+    public:
+    int dfs(TreeNode* root, int level, vector<vector<int>>& res) {
+        if (!root) {
+            return 0;
+        }
+        if ((int)res.size() == level) {
+            res.push_back({});
+        }
+        res[level].push_back(root->val);
+        dfs(root->left, level + 1, res);
+        dfs(root->right, level + 1, res);
+
+        return 0;
+    }
+    vector<vector<int> > levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (root == NULL) {
+            return res;
+        }
+        dfs(root, 0, res);
+        return res;
+    }
+};
+
+class Solution {
+    public:
+    vector<vector<int> > levelOrder(TreeNode* root) {
+        vector<vector<int>> res;
+        if (root == NULL) {
+            return res;
+        }
+        queue<TreeNode*> que;
+        que.push(root);
+        while (!que.empty()) {
+            vector<int> one_leval;
+            one_leval.clear();
+            int n = que.size();
+            for (int i = 0; i < n; i++) {
+                TreeNode* tmp = que.front();
+                que.pop();
+                one_leval.push_back(tmp->val);
+                if (tmp->left) {
+                    que.push(tmp->left);
+                }
+                if (tmp->right) {
+                    que.push(tmp->right);
+                }
+            }
+            res.push_back(one_leval);
+        }
+        return res;
+    }
+};
 
 class Solution {
     public:

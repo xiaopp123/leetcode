@@ -14,7 +14,47 @@ using namespace std;
  *    如果三个数和小于0，说明需要增大一下，则移动第二个数指针
  *    如果三个数和大于0，说明需要减小一下，则移动第三个数指针
  */
+class Solution {
+    public:
+    vector< vector<int> > threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        vector<vector<int>> res;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] >= 0) {
+                break;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int s = i + 1;
+            int e = n - 1;
+            int target = 0 - nums[i];
+            while (s < e) {
+                if (nums[s] + nums[e] == target) {
+                    res.push_back({nums[i], nums[s], nums[e]});
+                    while (s < e && nums[s + 1] == nums[s]) {
+                        s++;
+                    }
+                    while (s < e && nums[e - 1] == nums[e]) {
+                        e--;
+                    }
+                    s++;
+                    e--;
+                }
+                if (nums[s] + nums[e] > target) {
+                    e--;
+                }
+                if (nums[s] + nums[e] < target) {
+                    s++;
+                }
+            }
+        }
+        return res;
+    }
+};
 
+/*
 class Solution {
     public:
     vector< vector<int> > threeSum(vector<int>& nums) {
@@ -49,6 +89,7 @@ class Solution {
         return res;
     }
 };
+*/
 int main() {
     Solution* solution = new Solution();
     int n;

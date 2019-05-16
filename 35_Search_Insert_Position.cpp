@@ -11,20 +11,20 @@ using namespace std;
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-        int n = nums.size();
-        int l = 0, r = n;
-        while (l < r) {
-            int mid = (l + r) / 2;
-            if (nums[mid] == target) {
-                return mid;
-            } else if (nums[mid] > target) {
-                r = mid;
-            } else {
-                l = mid + 1;
+        int left = 0;
+        int right = nums.size();
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (target <= nums[mid]) {
+                right = mid;
+            } else if (nums[mid] < target) {
+                left = mid + 1;
             }
         }
-
-        return l;
+        if (left - 1 >= 0 && target >= nums[left - 1]) {
+            return left - 1;
+        }
+        return left;
     }
 };
 int main() {

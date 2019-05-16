@@ -6,6 +6,13 @@
 using namespace std;
 
 class Solution {
+    public:
+        bool exist(vector<vector<char> > & board, string word) {
+        }
+};
+
+/*
+class Solution {
     private:
         bool dfs(int x, int y, int index, vector<vector<char> > & board, string word, vector<vector<bool> >&vis) {
             if (index == (int)word.length()) {
@@ -41,6 +48,7 @@ class Solution {
         return false;
     }
 };
+*/
 int main() {
 
     return 0;

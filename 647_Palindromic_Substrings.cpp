@@ -2,6 +2,29 @@
 
 using namespace std;
 
+class Solution {
+    public:
+    int countSubstrings(string s) {
+        int n = s.length();
+        int cnt = 0;
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (s[i] == s[j]) {
+                    if (j + 1 < i - 1) {
+                        dp[j][i] = dp[j + 1][i - 1];
+                    } else {
+                        dp[j][i] = true;
+                    }
+                    if (dp[j][i]) {
+                        cnt++;
+                    }
+                }
+            }
+        }
+        return cnt;
+    }
+};
 /**
  * dp[i][j] 表示s[i, i+1, i+2 ... j]是回文串
  * 如果dp[i][j]是true, 如果s[i - 1] == s[j + 1], 则dp[i - 1][j + 1] = true;
@@ -76,6 +99,7 @@ class Solution {
         return res;
     }
 };
+*/
 
 int main() {
     return 0;

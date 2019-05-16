@@ -23,7 +23,6 @@ public:
 				res.push_back(m[num]);
 				break;
 			}
-			
 		}
 
 		return res;
@@ -44,6 +43,6 @@ int main() {
 	for (int i = 0; i < (int) res.size(); i++) {
 	    cout << res[i] << endl;
 	}
-    
+
     return 0;
 }
