@@ -22,5 +22,6 @@ int main() {
     while (cin >> n) {
         cout << solution->numTrees(n) << endl;
     }
+
     return 0;
 }
