@@ -9,6 +9,7 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+/*
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
@@ -35,6 +36,42 @@ public:
 		}
 
         return res->next;
+    }
+};
+*/
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* l1_head = l1;
+        int jw = 0;
+        while (l1 && l2) {
+            l1->val = l1->val + l2->val + jw;
+            jw = l1->val / 10;
+            l1->val %= 10;
+            l1 = l1->next;
+            l2 = l2->next;
+        }
+        while (l2) {
+            l1 = l2;
+            l1->val += jw;
+            l1->val %= 10;
+            jw /= 10;
+        }
+        if (jw != 0) {
+            l1 = new ListNode(jw);
+        }
+        return l1_head;
+        /*
+        ListNode* res_head  = new ListNode(-1);
+        while (l1_head) {
+            ListNode* tmp = l1_head->next;
+            l1_head->next = res_head->next;
+            res_head->next = l1_head;
+            l1_head = tmp;
+        }
+        return res_head->next;
+        */
     }
 };
 

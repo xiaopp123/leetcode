@@ -13,7 +13,6 @@ using namespace std;
  *    如果三个数相等，则放入集合中，为了防止重复
  *    如果三个数和小于0，说明需要增大一下，则移动第二个数指针
  *    如果三个数和大于0，说明需要减小一下，则移动第三个数指针
- */
 class Solution {
     public:
     vector< vector<int> > threeSum(vector<int>& nums) {
@@ -53,6 +52,7 @@ class Solution {
         return res;
     }
 };
+*/
 
 /*
 class Solution {
@@ -90,6 +90,43 @@ class Solution {
     }
 };
 */
+
+class Solution {
+    public:
+    vector< vector<int> > threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        int n = nums.size();
+        for (int i = 0; i <= n - 3; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1;
+            int right = n - 1;
+            while (left < right) {
+                if (nums[i] + nums[left] + nums[right] == 0) {
+                    res.push_back({nums[i], nums[left], nums[right]});
+                    while (left < right && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    while (left < right && nums[right - 1] == nums[right]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                } else if (nums[i] + nums[left] + nums[right] < 0) {
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+
+        return res;
+    }
+};
+
+
 int main() {
     Solution* solution = new Solution();
     int n;
