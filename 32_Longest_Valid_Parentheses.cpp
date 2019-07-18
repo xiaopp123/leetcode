@@ -3,7 +3,32 @@
 #include <stack>
 #include <algorithm>
 #include <iostream>
+#include "heads.h"
 using namespace std;
+
+class Solution {
+    public:
+    int longestValidParentheses(string s) {
+        int len = s.length();
+        vector<int> dp(len, 0);
+        for (int i = 0; i < len; i++) {
+            if (s[i] == ')') {
+                if (i - 1 >= 0 && dp[i - 1] > 0) {
+                    if (i - dp[i - 1] - 1 >= 0 && s[i - dp[i - 1] - 1] == '(') {
+                        dp[i] = dp[i - 1] + 2 + (i - dp[i - 1] - 2 >= 0 ? dp[i - dp[i - 1] - 2] : 0);
+                    }
+                } else if (i - 1 >= 0 && s[i - 1] == '(') {
+                    dp[i] = 2 + (i - 2 >= 0 ? dp[i - 2] : 0);
+                }
+            }
+        }
+        int res = 0;
+        for (int i = 0; i < len; i++) {
+            res = max(dp[i], res);
+        }
+        return res;
+    }
+};
 
 /*
 class Solution {
@@ -30,7 +55,6 @@ class Solution {
         return maxRes;
     }
 };
-*/
 
 class Solution {
     public:
@@ -58,6 +82,7 @@ class Solution {
         return maxLen;
     }
 };
+*/
 int main() {
 
     return 0;
