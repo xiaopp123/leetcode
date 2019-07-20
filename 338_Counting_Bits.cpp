@@ -4,6 +4,19 @@
 #include <vector>
 using namespace std;
 
+class Solution {
+    public:
+    vector<int> countBits(int num) {
+        vector<int> res(num + 1);
+        res[0] = 0;
+        for (int i = 1; i <= num; i++) {
+            res[i] = res[i >> 1] + (i & 1);
+        }
+
+        return res;
+    }
+};
+
 /**
  * https://leetcode.com/problems/counting-bits/
  * 统计[0, num]各个数二进制中1的个数
