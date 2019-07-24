@@ -1,6 +1,32 @@
 #include "heads.h"
 using namespace std;
 
+class Solution {
+    public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        map<int, int> m;
+        int n = nums.size();
+        vector<vector<int>> bucket(n + 1);
+        for (int i = 0; i < n; i++) {
+            m[nums[i]]++;
+        }
+        map<int, int>::iterator it;
+        for (it = m.begin(); it != m.end(); it++) {
+            bucket[it->second].push_back(it->first);
+        }
+        vector<int> res;
+        for (int i = n; i >= 0; i--) {
+            for (int j = 0; j < (int)bucket[i].size(); j++) {
+                res.push_back(bucket[i][j]);
+                if ((int)res.size() == k) {
+                    return res;
+                }
+            }
+        }
+        return res;
+    }
+};
+
 /**
  * https://leetcode.com/problems/top-k-frequent-elements/
  * 方案二：桶排序
