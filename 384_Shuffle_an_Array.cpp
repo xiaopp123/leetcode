@@ -18,7 +18,8 @@ public:
     vector<int> shuffle() {
         vector<int> res = _nums;
         for (int i = 0; i < (int)res.size(); i++) {
-            int t = (rand() % (i + 1));
+        //    int t = (rand() % (i + 1));
+            int t = i + rand() % (res.size() - i);
             swap(res[i], res[t]);
         }
         return res;
