@@ -5,6 +5,31 @@
 #include <vector>
 using namespace std;
 
+class Solution {
+    public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        string cur = "";
+        dfs(res, n, n, cur);
+        return res;
+    }
+    void dfs(vector<string>& res, int left, int right, string cur) {
+        if (left > right) {
+            return;
+        }
+        if (left == 0 && right == 0) {
+            res.push_back(cur);
+            return;
+        } else {
+            if (left > 0) {
+                dfs(res, left - 1, right, cur + "(");
+            }
+            if (right > 0) {
+                dfs(res, left, right - 1, cur + ")");
+            }
+        }
+    }
+};
 /**
  * https://leetcode.com/problems/generate-parentheses/description/
  * 递归
