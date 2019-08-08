@@ -4,6 +4,30 @@ using namespace std;
 class Solution {
     public:
     int longestConsecutive(vector<int>& nums) {
+        map<int, int> m;
+        for (auto num : nums) {
+            m[num] = 1;
+        }
+        int res = 0;
+        for (auto num : nums) {
+            if (m.count(num - 1) <= 0) {
+                int strike = 1;
+                int cur = num;
+                while (m.count(cur) > 0) {
+                    cur++;
+                    strike++;
+                }
+                res = max(res, strike);
+            }
+        }
+        return res;
+    }
+};
+
+/*
+class Solution {
+    public:
+    int longestConsecutive(vector<int>& nums) {
         set<int> mp;
         for (auto num : nums) {
             mp.insert(num);
@@ -26,7 +50,6 @@ class Solution {
         return strike;
     }
 };
-/*
 class Solution {
     public:
     int longestConsecutive(vector<int>& nums) {
