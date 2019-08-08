@@ -4,6 +4,39 @@ using namespace std;
 class Solution {
     public:
     int largestRectangleArea(vector<int>& heights) {
+        int n = heights.size();
+        if (n == 1) {
+            return heights[0];
+        }
+        stack<int> st;
+        int  res = 0;
+        heights.push_back(0);
+        for (int i = 0; i < (int)heights.size(); i++) {
+            if (st.empty() || heights[st.top()] <= heights[i]) {
+                st.push(i);
+            } else {
+                int cur = st.top();
+                st.pop();
+                if (!st.empty()) {
+                    res = max(res, heights[cur] * (i - st.top() - 1));
+                } else {
+                    res = max(res, heights[cur] * i );
+                }
+                i--;
+            }
+        }
+
+        //if (!st.empty()) {
+        //    res = max(res, heights[st.top()] * st.top());
+        //}
+
+        return res;
+    }
+};
+
+class Solution {
+    public:
+    int largestRectangleArea(vector<int>& heights) {
         stack<int> st;
         int res = 0;
         heights.push_back(0);
