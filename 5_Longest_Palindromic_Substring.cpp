@@ -1,7 +1,37 @@
-#include <cstdio>
-#include <cstring>
-#include <iostream>
+#include "heads.h"
 using namespace std;
+
+class Solution {
+    public:
+    string longestPalindrome(string s) {
+        int n = s.length();
+        if (n == 0) {
+            return s;
+        }
+        int start = 0;
+        int max_len = 1;
+        vector<vector<int>> dp(n, vector<int>(n,0));
+        for (int i = 0; i < n; i++) {
+            if (i + 1 < n && s[i] == s[i + 1]) {
+                dp[i][i + 1] = true;
+                start = i;
+                max_len = 2;
+            }
+            dp[i][i] = true;
+        }
+        for (int len = 2; len < n; len++) {
+            for (int i = 0; i < n; i++) {
+                int j = i + len;
+                if (j < n && s[i] == s[j]) {
+                    dp[i][j] = dp[i + 1][j - 1];
+                    start = i;
+                    max_len = len;
+                }
+            }
+        }
+        return s.substr(start, max_len);
+    }
+};
 
 class Solution {
     public:
