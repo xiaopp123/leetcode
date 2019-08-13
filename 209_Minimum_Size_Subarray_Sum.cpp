@@ -2,6 +2,30 @@
 using namespace std;
 class Solution {
     public:
+    int minSubArrayLen(int s, vector<int>& nums) {
+        int left = 0;
+        int sum = 0;
+        int min_len = INT_MAX;
+        int n = nums.size();
+        if (n == 0) {
+            return 0;
+        }
+        for (int i = 0; i < n; i++) {
+            sum += nums[i];
+            while (sum >= s) {
+            //    if (sum == s) {
+                    min_len = min(min_len, i - left + 1);
+            //   }
+                sum -= nums[left];
+                left++;
+            }
+        }
+        return min_len == INT_MAX ? 0 : min_len;
+    }
+};
+/*
+class Solution {
+    public:
     int search(int left, int right, int target, int arr[]) {
         while (left <= right) {
             int mid = left + (right - left) / 2;
@@ -31,6 +55,7 @@ class Solution {
         return res == len + 1 ? 0 : res;
     }
 };
+*/
 
 /*
 class Solution {
