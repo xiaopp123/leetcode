@@ -4,6 +4,37 @@ using namespace std;
 class Solution {
     public:
     string minWindow(string s, string t) {
+        map<char, int> mp;
+        for (int i = 0; i < (int)t.length(); i++) {
+            mp[t[i]]++;
+        }
+        int left = 0;
+        int min_len = INT_MAX;
+        string res = "";
+        int cnt = 0;
+        for (int i = 0; i < (int)s.length(); i++) {
+            if (--mp[s[i]] >= 0) {
+                cnt++;
+            }
+            while (cnt == (int)t.size()) {
+                if (min_len > i - left + 1) {
+                    min_len = i - left + 1;
+                    res = s.substr(left, min_len);
+                }
+                if (++mp[s[left]] > 0) {
+                    cnt--;
+                }
+                left++;
+            }
+        }
+        return res;
+    }
+};
+
+/*
+class Solution {
+    public:
+    string minWindow(string s, string t) {
         if (s.length() == 0 || t.length() == 0 || s.length() < t.length()) {
             return "";
         }
@@ -57,6 +88,7 @@ class Solution {
         return s.substr(head_res, res);
     }
 };
+*/
 
 /*
 class Solution {
