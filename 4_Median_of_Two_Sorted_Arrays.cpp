@@ -6,6 +6,47 @@
 #include <algorithm>
 using namespace std;
 
+class Solution {
+    public:
+    int find(vector<int>& nums1, int i, vector<int>& nums2, int j, int k) {
+        if (k == 1) {
+            return min(nums1[0], nums2[0]);
+        }
+        if (i >= (int)nums1.size()) {
+            return nums2[j + k - 1];
+        }
+        if (j >= (int)nums2.size()) {
+            return nums1[i + k - 1];
+        }
+        int midv1 = -1;
+        int midv2 = -1;
+        if (i + k / 2 - 1 < (int)nums1.size()) {
+            midv1 = nums1[i + k / 2 - 1];
+        } else {
+            midv1 = INT_MAX;
+        }
+        if (j + k / 2 - 1 < (int)nums2.size()) {
+            midv2 = nums2[j + k / 2 - 1];
+        } else {
+            midv2 = INT_MAX;
+        }
+
+        if (midv1 < midv2) {
+            return find(nums1, i + k / 2 - 1, nums2, j, k - k / 2);
+        } else {
+            return find(nums1, i, nums2, j + k / 2 - 1, k - k / 2);
+        }
+
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int n = nums1.size();
+        int m = nums2.size();
+        int k1 = find(nums1, 0, nums2, 0, (m + n + 1) / 2);
+        int k2 = find(nums1, 0, nums2, 0, (m + n + 2) / 2);
+        return (k1 + k2) / 2;
+    }
+};
+
 /* n + m
 class Solution {
     public:
